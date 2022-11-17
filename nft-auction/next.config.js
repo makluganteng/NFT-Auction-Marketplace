@@ -4,11 +4,9 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     outputStandalone: true,
-  },   
-  images: {
-    "loader": "akamai",
-    "path": ""
-  }
+  },
+  "loader": "akamai",
+  "path": "",   
 }
 module.exports = {
   trailingSlash: true,
