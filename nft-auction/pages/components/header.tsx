@@ -6,6 +6,7 @@ background-color: black;
 display: flex;
 justify-content: space-around;
 padding: 30px 0px 30px 0px;
+font-size: 25px;
 `
 
 const TitleContaier = styled.div`
@@ -24,11 +25,16 @@ const MenuContainer = styled.div`
 const MenuItemContainer = styled.ul`
 display: flex;
 list-style-type: none;
+
 `
 
 const MenuItem = styled.li`
 color: white;
 margin: 0px 10px 0px 10px;
+transition: 0.3s ease-in-out;
+&:hover {
+    transform: scale(1.04);
+}
 `
 
 
