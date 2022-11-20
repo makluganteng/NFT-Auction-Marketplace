@@ -8,8 +8,10 @@ const sono = Sono({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
+    
     <main className={sono.className}>
       <Component {...pageProps} />
     </main>
+    
   )
 }
