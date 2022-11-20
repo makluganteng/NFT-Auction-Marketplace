@@ -1,15 +1,18 @@
-/** @type {import('next').NextConfig} */
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
+  env:{
   reactStrictMode: true,
-  swcMinify: true,
-  experimental: {
-    outputStandalone: true,
+    swcMinify: true,
+    compiler: {
+      // Enables the styled-components SWC transform
+      styledComponents: true
+    }
   },
-  "loader": "akamai",
-  "path": "",   
 }
+
 module.exports = {
-  trailingSlash: true,
   nextConfig
 }
 
