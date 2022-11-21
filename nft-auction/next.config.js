@@ -13,6 +13,15 @@ const nextConfig = {
 }
 
 module.exports = {
-  nextConfig
+  nextConfig,
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/Dashboard',
+        permanent: true,
+      },
+    ]
+  },
 }
 
