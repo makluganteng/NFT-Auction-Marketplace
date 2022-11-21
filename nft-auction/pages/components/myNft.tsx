@@ -8,11 +8,27 @@ const MainContainer = styled.div`
     background-color: black
     color: white;
     display: flex;
-    
+    flex-direction: column;
 `
 
 const CardContainer = styled.div`
 
+`
+
+const TitleContainer = styled.div`
+display: flex;
+
+`
+
+const Title = styled.h1`
+color: white;
+margin: 0px 0px 0px 40px;
+font-size: 50px;
+`
+
+const NftContainer = styled.div`
+display: flex;
+margin: 0px 0px 0px 30px;
 `
 
 export type NFT = {
@@ -30,9 +46,13 @@ const MyNft = () => {
     },[])
 
     return(
-        <Route>
+        <>
         <MainContainer>
-            {
+            <TitleContainer>
+                <Title>My NFT</Title>
+            </TitleContainer>
+            <NftContainer>
+              {
                nft ? nft.map((value: NFT, key)=>{
                     return(
                         <CardContainer key={key}>
@@ -41,9 +61,10 @@ const MyNft = () => {
                         
                     )
                 }) : <></>
-            }
+            }  
+            </NftContainer>
         </MainContainer>
-        </Route>
+        </>
     )
 }
 

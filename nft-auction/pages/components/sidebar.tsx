@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import {Link } from "react-router-dom"
 import Image from "next/image"
 
 const MainContainer = styled.div`
@@ -9,6 +8,9 @@ flex-direction: column;
 align-items: center;
 height:100vh;
 color: white;
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@500&display=swap');
+font-family: 'Sono', sans-serif;
+  font-weight: 500;
 `
 
 const ProfileContainer = styled.div`
