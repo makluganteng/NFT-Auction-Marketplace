@@ -11,6 +11,11 @@ module.exports = {
       styledComponents: true,
     },
   },
+  images: {
+    loader: 'akamai',
+    path: '',
+  },
+  trailingSlash: true,
   async redirects() {
     return [
       {
