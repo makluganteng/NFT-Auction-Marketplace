@@ -6,19 +6,21 @@ import styled from "styled-components";
 import MarketNFT from "./components/marketNFT";
 
 const Container = styled.div`
-display: flex;
-`
+  display: flex;
+`;
 
 const Market: NextPage = () => {
-    return (
-        <>
-            <Header />
-            <Container>
-                <SideBar />
-                <MainBar children={<MarketNFT/>}/>
-            </Container>
-        </>
-    )
-}
+  return (
+    <>
+      <Header />
+      <Container>
+        <SideBar />
+        <MainBar>
+          <MarketNFT />
+        </MainBar>
+      </Container>
+    </>
+  );
+};
 
 export default Market;

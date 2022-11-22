@@ -5,21 +5,22 @@ import SideBar from "./components/sidebar";
 import styled from "styled-components";
 import MyNft from "./components/myNft";
 
-
 const Container = styled.div`
-display: flex;
-`
+  display: flex;
+`;
 
 const Dashboard: NextPage = () => {
-    return (
-        <>
-            <Header />
-            <Container>
-                <SideBar />
-                <MainBar children={<MyNft/>}/>
-            </Container>
-        </>
-    )
-}
+  return (
+    <>
+      <Header />
+      <Container>
+        <SideBar />
+        <MainBar>
+          <MyNft />
+        </MainBar>
+      </Container>
+    </>
+  );
+};
 
 export default Dashboard;

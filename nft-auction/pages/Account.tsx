@@ -15,10 +15,10 @@ const Account: NextPage = () => {
       <Header />
       <Container>
         <SideBar />
-        <MainBar children={<AccountList />}/>
-        
+        <MainBar>
+          <AccountList />
+        </MainBar>
       </Container>
-      
     </>
   );
 };
