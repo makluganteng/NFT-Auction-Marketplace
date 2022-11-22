@@ -28,7 +28,7 @@ const Price = styled.div`
 
 const Card = (nft: NFT) => {
 useEffect(()=>{
-    console.log(nft.nft.name);
+    console.log(nft.name);
 })
 
     return(
@@ -38,9 +38,9 @@ useEffect(()=>{
 
             </ImageContainer>
             <DetailContainer>
-                <Name>{nft.nft.name}</Name>
+                <Name>{nft.name}</Name>
                 {
-                    nft.nft.price ? <Price>{nft.nft.price}</Price> : <></>
+                    nft.price ? <Price>{nft.price}</Price> : <></>
                 }
             </DetailContainer>
         </MainCardContainer>

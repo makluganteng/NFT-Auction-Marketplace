@@ -13,7 +13,7 @@ font-family: 'Sono', sans-serif;
   font-weight: 500;
 `
 
-const TitleContaier = styled.div`
+const TitleContainer = styled.div`
 
 `
 
@@ -51,11 +51,11 @@ const Header = () => {
     return (
         <>
             <MainContainer>
-                <TitleContaier>
+                <TitleContainer>
                     <Title>
                         LepakAuction
                     </Title>
-                </TitleContaier>
+                </TitleContainer>
                 <MenuContainer>
                     <MenuItemContainer>
                         <MenuItem>

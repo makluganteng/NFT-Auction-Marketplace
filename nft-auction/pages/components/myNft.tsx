@@ -1,8 +1,8 @@
-import { NextPage } from "next"
-import { useEffect, useState } from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
-import styled from "styled-components"
-import Card from "./card"
+import { NextPage } from "next";
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import styled from "styled-components";
+import Card from "./card";
 
 const MainContainer = styled.div`
     background-color: black
@@ -11,9 +11,7 @@ const MainContainer = styled.div`
     flex-direction: column;
 `
 
-const CardContainer = styled.div`
-
-`
+const CardContainer = styled.div``;
 
 const TitleContainer = styled.div`
 display: flex;
@@ -32,18 +30,21 @@ margin: 0px 0px 0px 30px;
 `
 
 export type NFT = {
-    name: string
-    price: string
-}
+  name: string;
+  price: string;
+};
 
 const MyNft = () => {
+  const [nft, setNft] = useState<Array<NFT>>();
 
-    const[nft,setNft] = useState<Array<NFT>>()
-
-    useEffect(()=>{
-        setNft([{name: "LALA",price: ""},{name: "Stark", price: ""},{name:"heyoNFT", price: ""}])
-        console.log(nft)
-    },[])
+  useEffect(() => {
+    setNft([
+      { name: "LALA", price: "" },
+      { name: "Stark", price: "" },
+      { name: "heyoNFT", price: "" },
+    ]);
+    console.log(nft);
+  }, [nft]);
 
     return(
         <>
@@ -68,4 +69,5 @@ const MyNft = () => {
     )
 }
 
-export default MyNft
+
+export default MyNft;
