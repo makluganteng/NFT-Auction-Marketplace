@@ -4,15 +4,34 @@ import {
     Input,
     Button
 } from '@chakra-ui/react';
+
+import {useEffect, useRef, useState} from 'react';
+import { useRouter } from 'next/router'
+
+import {abi, CONTRACT_ADDRESS} from "../constants";
+import { BytesLike, ethers } from 'ethers';
+
 import QRCode from 'react-qr-code';
-import {useRef} from 'react';
 
 export default function Verify() {
 
-    const inputRef = useRef<any>("");
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const PRIVATE_KEY = process.env.NEXT_PUBLIC_PRIVATE_KEY;
 
-    // update with your contract address
-    const deployedContractAddress = "0x245D0447bdD18301f677249434F09789A4BB56B3";
+    const [bidderContract, setBidderContract] = useState<any>(null);
+
+    const inputRef = useRef<any>("");
+    const router = useRouter()
+
+    useEffect(() => {
+        const provider = new ethers.providers.JsonRpcProvider(API_URL);
+        const signer = new ethers.Wallet(PRIVATE_KEY as BytesLike, provider);
+        const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+
+        setBidderContract(contract);
+
+    }, []);
 
     // more info on query based requests: https://0xpolygonid.github.io/tutorials/wallet/proof-generation/types-of-auth-requests-and-proofs/#query-based-request
     const qrProofRequestJson = {
@@ -21,7 +40,7 @@ export default function Verify() {
     type: "https://iden3-communication.io/proofs/1.0/contract-invoke-request",
     body: {
         transaction_data: {
-        contract_address: deployedContractAddress,
+        contract_address: CONTRACT_ADDRESS,
         method_id: "b68967e2",
         chain_id: 80001,
         network: "polygon-mumbai"
@@ -51,9 +70,12 @@ export default function Verify() {
     }
     };
 
-    function onSubmitAddress(){
-        alert(inputRef.current.value);
+    async function onSubmitAddress(){
+        await bidderContract.addressToId(inputRef.current.value).then((res: any) => {
+            router.push('/test')
+        }).catch(() => {alert("You are not verified.")});
     }
+    
 
     return (
         <Box paddingX = {10}>
