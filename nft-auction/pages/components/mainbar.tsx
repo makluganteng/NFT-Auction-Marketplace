@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import MyNft from "./myNft";
-import Account from "./";
 
 const MainContainer = styled.div`
 background-color: #282A3A;
