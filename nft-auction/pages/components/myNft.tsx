@@ -39,9 +39,9 @@ const MyNft = () => {
 
   useEffect(() => {
     setNft([
-      { name: "LALA", price: "" },
-      { name: "Stark", price: "" },
-      { name: "heyoNFT", price: "" },
+      { name: "LALA", price: "0.1" },
+      { name: "Stark", price: "0.15" },
+      { name: "heyoNFT", price: "0.2" },
     ]);
     console.log(nft);
   }, []);
