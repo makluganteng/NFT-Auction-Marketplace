@@ -44,7 +44,7 @@ const MyNft = () => {
       { name: "heyoNFT", price: "" },
     ]);
     console.log(nft);
-  }, [nft]);
+  }, []);
 
     return(
         <>
@@ -57,7 +57,7 @@ const MyNft = () => {
                nft ? nft.map((value: NFT, key)=>{
                     return(
                         <CardContainer key={key}>
-                                <Card nft={value} />
+                                <Card name={value.name} price={value.price} />
                         </CardContainer>
                         
                     )
