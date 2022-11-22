@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Link from 'next/link'
 
 const MainContainer = styled.div`
 width: 100%;
@@ -7,6 +8,9 @@ display: flex;
 justify-content: space-around;
 padding: 30px 0px 30px 0px;
 font-size: 25px;
+@import url('https://fonts.googleapis.com/css2?family=Sono:wght@500&display=swap');
+font-family: 'Sono', sans-serif;
+  font-weight: 500;
 `
 
 const TitleContaier = styled.div`
@@ -37,6 +41,11 @@ transition: 0.3s ease-in-out;
 }
 `
 
+const Item = styled(Link)`
+color:inherit;
+text-decoration:none;
+`
+
 
 const Header = () => {
     return (
@@ -49,9 +58,15 @@ const Header = () => {
                 </TitleContaier>
                 <MenuContainer>
                     <MenuItemContainer>
-                        <MenuItem>Home</MenuItem>
-                        <MenuItem>Account</MenuItem>
-                        <MenuItem>Market</MenuItem>
+                        <MenuItem>
+                        <Item href={"/"} onClick={()=>console.log("wtf")}>Home</Item>
+                        </MenuItem>
+                        <MenuItem>
+                        <Item href="/account">Account</Item>
+                        </MenuItem>
+                        <MenuItem>
+                        <Item href="/market">Market</Item>
+                        </MenuItem>
                     </MenuItemContainer>
                 </MenuContainer>
             </MainContainer>
