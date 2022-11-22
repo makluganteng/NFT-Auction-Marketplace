@@ -8,10 +8,26 @@ const MainContainer = styled.div`
     background-color: black
     color: white;
     display: flex;
-    
-`;
+    flex-direction: column;
+`
 
 const CardContainer = styled.div``;
+
+const TitleContainer = styled.div`
+display: flex;
+
+`
+
+const Title = styled.h1`
+color: white;
+margin: 0px 0px 0px 40px;
+font-size: 50px;
+`
+
+const NftContainer = styled.div`
+display: flex;
+margin: 0px 0px 0px 30px;
+`
 
 export type NFT = {
   name: string;
@@ -30,24 +46,28 @@ const MyNft = () => {
     console.log(nft);
   }, [nft]);
 
-  return (
-    <>
-      <MainContainer>
-        {
-             nft ? nft.map((value: NFT, key)=>{
-                  return(
-                      <CardContainer key={key}>
-                              <Card name={value.name} price={value.price}/>
+    return(
+        <>
+        <MainContainer>
+            <TitleContainer>
+                <Title>My NFT</Title>
+            </TitleContainer>
+            <NftContainer>
+              {
+               nft ? nft.map((value: NFT, key)=>{
+                    return(
+                        <CardContainer key={key}>
+                                <Card nft={value} />
+                        </CardContainer>
+                        
+                    )
+                }) : <></>
+            }  
+            </NftContainer>
+        </MainContainer>
+        </>
+    )
+}
 
-                      </CardContainer>
-
-                  )
-              }) : <></>
-          
-        }
-      </MainContainer>
-    </>
-  );
-};
 
 export default MyNft;
