@@ -65,7 +65,7 @@ const Header = () => {
                         <Item href="/Account">Account</Item>
                         </MenuItem>
                         <MenuItem>
-                        <Item href="/market">Market</Item>
+                        <Item href="/Market">Market</Item>
                         </MenuItem>
                     </MenuItemContainer>
                 </MenuContainer>
