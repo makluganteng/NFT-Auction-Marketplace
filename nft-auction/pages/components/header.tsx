@@ -59,10 +59,10 @@ const Header = () => {
                 <MenuContainer>
                     <MenuItemContainer>
                         <MenuItem>
-                        <Item href={"/"} onClick={()=>console.log("wtf")}>Home</Item>
+                        <Item href={"/Dashboard"} onClick={()=>console.log("wtf")}>Home</Item>
                         </MenuItem>
                         <MenuItem>
-                        <Item href="/account">Account</Item>
+                        <Item href="/Account">Account</Item>
                         </MenuItem>
                         <MenuItem>
                         <Item href="/market">Market</Item>
