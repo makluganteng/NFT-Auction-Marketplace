@@ -1,18 +1,28 @@
 /**
  * @type {import('next').NextConfig}
  */
-const nextConfig = {
-  env:{
-  reactStrictMode: true,
+
+module.exports = {
+  env: {
+    reactStrictMode: true,
     swcMinify: true,
     compiler: {
       // Enables the styled-components SWC transform
-      styledComponents: true
-    }
+      styledComponents: true,
+    },
   },
-}
-
-module.exports = {
-  nextConfig
-}
-
+  images: {
+    loader: 'akamai',
+    path: '',
+  },
+  trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/Dashboard",
+        permanent: true,
+      },
+    ];
+  },
+};

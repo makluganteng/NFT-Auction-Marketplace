@@ -9,7 +9,7 @@ padding: 30px 0px 30px 0px;
 font-size: 25px;
 `
 
-const TitleContaier = styled.div`
+const TitleContainer = styled.div`
 
 `
 
@@ -42,11 +42,11 @@ const Header = () => {
     return (
         <>
             <MainContainer>
-                <TitleContaier>
+                <TitleContainer>
                     <Title>
                         LepakAuction
                     </Title>
-                </TitleContaier>
+                </TitleContainer>
                 <MenuContainer>
                     <MenuItemContainer>
                         <MenuItem>Home</MenuItem>
