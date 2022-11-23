@@ -34,14 +34,15 @@ export type NFT = {
   price: string;
 };
 
-const MyNft = () => {
+const MarketNFT = () => {
   const [nft, setNft] = useState<Array<NFT>>();
 
   useEffect(() => {
     setNft([
-      { name: "LALA", price: "0.1" },
-      { name: "Stark", price: "0.15" },
-      { name: "heyoNFT", price: "0.2" },
+      { name: "BAYC #1", price: "1.0" },
+      { name: "BAYC #2", price: "1.5" },
+      { name: "Mutant Doge #1", price: "0.5" },
+      { name: "Mutant Doge #2", price: "0.3" },      
     ]);
     console.log(nft);
   }, []);
@@ -50,7 +51,7 @@ const MyNft = () => {
         <>
         <MainContainer>
             <TitleContainer>
-                <Title>My NFT</Title>
+                <Title>Market</Title>
             </TitleContainer>
             <NftContainer>
               {
@@ -70,4 +71,4 @@ const MyNft = () => {
 }
 
 
-export default MyNft;
+export default MarketNFT;

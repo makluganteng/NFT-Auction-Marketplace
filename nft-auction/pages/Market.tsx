@@ -3,24 +3,24 @@ import Header from "./components/header";
 import MainBar from "./components/mainbar";
 import SideBar from "./components/sidebar";
 import styled from "styled-components";
-import MyNft from "./components/myNft";
+import MarketNFT from "./components/marketNFT";
 
 const Container = styled.div`
   display: flex;
 `;
 
-const Dashboard: NextPage = () => {
+const Market: NextPage = () => {
   return (
     <>
       <Header />
       <Container>
         <SideBar />
         <MainBar>
-          <MyNft />
+          <MarketNFT />
         </MainBar>
       </Container>
     </>
   );
 };
 
-export default Dashboard;
+export default Market;

@@ -1,21 +1,17 @@
 import styled from "styled-components";
-import MyNft from "./myNft";
-import Account from "./";
 
 const MainContainer = styled.div`
-background-color: #282A3A;
-width: 100%;
-height: 100vh;
-`
+  background-color: #282a3a;
+  width: 100%;
+  height: 100vh;
+`;
 
-const MainBar = () => {
-    return(
-        <>
-        <MainContainer>
-            <MyNft/>
-        </MainContainer>
-        </>
-    )
-}
+const MainBar = (props: any) => {
+  return (
+    <>
+      <MainContainer>{props.children}</MainContainer>
+    </>
+  );
+};
 
 export default MainBar;
