@@ -16,13 +16,13 @@ module.exports = {
     path: '',
   },
   trailingSlash: true,
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/Dashboard",
-        permanent: true,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/Dashboard",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
 };
