@@ -2,7 +2,11 @@ import {
     Text,
     Box,
     Input,
-    Button
+    Button,
+    Flex,
+    Heading,
+    Stack,
+    Image
 } from '@chakra-ui/react';
 
 import {useEffect, useRef, useState} from 'react';
@@ -15,7 +19,6 @@ import QRCode from 'react-qr-code';
 
 export default function Verify() {
 
-    const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
     const PRIVATE_KEY = process.env.NEXT_PUBLIC_PRIVATE_KEY;
 
@@ -72,30 +75,57 @@ export default function Verify() {
 
     async function onSubmitAddress(){
         await bidderContract.addressToId(inputRef.current.value).then((res: any) => {
-            router.push('/test')
+            if(res._hex != "0x00"){
+                router.push('/test')
+            } else{
+                alert("Address not registered");
+            }
         }).catch(() => {alert("You are not verified.")});
     }
     
 
     return (
-        <Box paddingX = {10}>
-            <Box>
-                <Text>Scan this QR code with your PolygonID Wallet to verify your identity</Text>
-            </Box>
-
-            <Box>
+        <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+            <Flex p={8} flex={1} align={'center'} justify={'center'}>
+            <Stack spacing={4} w={'full'} maxW={'md'}>
+                <Heading fontSize={'2xl'}>Sign in to your account</Heading>
                 <QRCode
-                    level="Q"
-                    style={{ width: 256, marginLeft: 20}}
-                    value={JSON.stringify(qrProofRequestJson)}
-                />  
-            </Box>
-
-            <Box>
+                        level="Q"
+                        style={{ width: 256, marginLeft: 20}}
+                        value={JSON.stringify(qrProofRequestJson)}
+                    />  
                 <Input ref={inputRef} placeholder="Enter your verified wallet address" size='md' />
-                <Button onClick={onSubmitAddress}>Submit</Button>
-            </Box>
+                <Button colorScheme={'blue'} variant={'solid'} onClick={onSubmitAddress}>Submit</Button>
+            </Stack>
+            </Flex>
+            <Flex flex={1}>
+            <Image
+                alt={'Login Image'}
+                objectFit={'cover'}
+                src={
+                'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80'
+                }
+            />
+            </Flex>
+      </Stack>        
+        // <Box paddingX = {10}>
+        //     <Box>
+        //         <Text>Scan this QR code with your PolygonID Wallet to verify your identity</Text>
+        //     </Box>
+
+        //     <Box>
+                // <QRCode
+                //     level="Q"
+                //     style={{ width: 256, marginLeft: 20}}
+                //     value={JSON.stringify(qrProofRequestJson)}
+                // />  
+        //     </Box>
+
+        //     <Box>
+        //         <Input ref={inputRef} placeholder="Enter your verified wallet address" size='md' />
+        //         <Button onClick={onSubmitAddress}>Submit</Button>
+        //     </Box>
     
-        </Box>
+        // </Box>
     )
 }
