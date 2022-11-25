@@ -41,30 +41,30 @@ const Item = styled(Link)`
 `;
 
 const Header = () => {
-  return (
-    <>
-      <MainContainer>
-        <TitleContainer>
-          <Title>zkNAM - zero-knowledge NFT Auction Marketplace</Title>
-        </TitleContainer>
-        <MenuContainer>
-          <MenuItemContainer>
-            <MenuItem>
-              <Item href={"/Dashboard"} onClick={() => console.log("wtf")}>
-                Home
-              </Item>
-            </MenuItem>
-            <MenuItem>
-              <Item href="/Account">Account</Item>
-            </MenuItem>
-            <MenuItem>
-              <Item href="/Market">Market</Item>
-            </MenuItem>
-          </MenuItemContainer>
-        </MenuContainer>
-      </MainContainer>
-    </>
-  );
-};
+    return (
+        <>
+            <MainContainer>
+                <TitleContainer>
+                    <Title>
+                        ZKNAM - Zero Knowledge NFT Auction Marketplace
+                    </Title>
+                </TitleContainer>
+                <MenuContainer>
+                    <MenuItemContainer>
+                        <MenuItem>
+                        <Item href={"/Dashboard"} onClick={()=>console.log("wtf")}>Home</Item>
+                        </MenuItem>
+                        <MenuItem>
+                        <Item href="/Account">Account</Item>
+                        </MenuItem>
+                        <MenuItem>
+                        <Item href="/Market">Market</Item>
+                        </MenuItem>
+                    </MenuItemContainer>
+                </MenuContainer>
+            </MainContainer>
+        </>
+    )
+}
 
 export default Header;

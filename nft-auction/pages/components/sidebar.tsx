@@ -61,18 +61,18 @@ type toastMessageType = {
 };
 
 const SideBar = () => {
-  const toast = useToast();
-  const [toastMessage, setToastMessage] = useState<toastMessageType>();
-
-  const [address, setAddress] = useState("");
-  const signerAddress = useAppPersistStore((state) => state.signerAddress);
-  const setSignerAddress = useAppPersistStore(
-    (state) => state.setSignerAddress
-  );
-
-  const getAddress = useCallback(async () => {
-    setAddress(await getEthAddress());
-  }, []);
+    const toast = useToast();
+    const [toastMessage, setToastMessage] = useState<toastMessageType>();
+  
+    const [address, setAddress] = useState("");
+    const signerAddress = useAppPersistStore((state) => state.signerAddress);
+    const setSignerAddress = useAppPersistStore(
+      (state) => state.setSignerAddress
+    );
+  
+    const getAddress = useCallback(async () => {
+      setAddress(await getEthAddress());
+    }, []);
 
   const connect = useCallback(async () => {
     // get current value
@@ -100,9 +100,11 @@ const SideBar = () => {
         description: "User has logged out",
         status: "success",
       });
+      
     } else {
       console.log(`user logged in: ${address}`);
     }
+    
   }, []);
   useEffect(() => {
     if (toastMessage) {
@@ -127,21 +129,21 @@ const SideBar = () => {
     });
   };
 
-  return (
-    <>
+    return(
+        <>
       <MainContainer>
         <ProfileContainer>
           {address && (
             <>
               <ComponentContainer>
-                <img src="/pfp.jpeg" />
+                {/* <img src="/pfp.jpeg" /> */}
                 <AddressContainer>
                   <Address>
                     {address.slice(0, 4)}...{address.slice(-4)}
                   </Address>
                 </AddressContainer>
-              </ComponentContainer>
-            </>
+                </ComponentContainer>
+                </>
           )}
         </ProfileContainer>
         <Stack spacing={4} direction="column" align="center">
