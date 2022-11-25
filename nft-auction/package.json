@@ -30,7 +30,8 @@
     "tdesign-react": "^0.43.0",
     "typescript": "4.8.4",
     "umi": "^4.0.32",
-    "valtio": "^1.7.6"
+    "valtio": "^1.7.6",
+    "zustand": "^4.1.4"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",

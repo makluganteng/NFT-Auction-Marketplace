@@ -5,6 +5,8 @@ import { initReddio, isVercel, reddio } from "../../Utils/config";
 import { useCallback, useEffect, useState } from "react";
 import { getEthAddress } from "../../Utils/utils";
 import { addStarkKey } from "../../Utils/store";
+import { useAppPersistStore } from "../../store/app";
+import { Button, useToast, Stack } from "@chakra-ui/react";
 
 const MainContainer = styled.div`
   background-color: black;
@@ -24,8 +26,12 @@ const AddressContainer = styled.div`
   width: 100%;
 `;
 
+const ComponentContainer = styled.div`
+  margin: 10px 10px 10px 10px;
+`;
+
 const Address = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   word-break: break-all;
 `;
 
@@ -47,56 +53,105 @@ const NavItem = styled.li`
 
 declare var window: any;
 
+// create toastMessage type
+type toastMessageType = {
+  title: string;
+  description: string;
+  status: "success" | "error" | "warning" | "info" | undefined;
+};
+
 const SideBar = () => {
+  const toast = useToast();
+  const [toastMessage, setToastMessage] = useState<toastMessageType>();
+
   const [address, setAddress] = useState("");
+  const signerAddress = useAppPersistStore((state) => state.signerAddress);
+  const setSignerAddress = useAppPersistStore(
+    (state) => state.setSignerAddress
+  );
 
   const getAddress = useCallback(async () => {
     setAddress(await getEthAddress());
   }, []);
 
   const connect = useCallback(async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("wallet_switchEthereumChain", [
-      { chainId: ethers.utils.hexValue(isVercel ? 1 : 5) },
-    ]);
-    await provider.send("eth_requestAccounts", []);
-    await getAddress();
-    const init = async () => {
-      initReddio();
-      const { publicKey, privateKey } =
-        await reddio.keypair.generateFromEthSignature();
-      console.log(publicKey, privateKey);
-      addStarkKey(publicKey);
-    };
-    init();
+    // get current value
+    const signerAddressVal = signerAddress;
+    console.log(`signerAddressVal: ${signerAddressVal}`);
+    if (signerAddressVal == "") {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("wallet_switchEthereumChain", [
+        { chainId: ethers.utils.hexValue(isVercel ? 1 : 5) },
+      ]);
+      await provider.send("eth_requestAccounts", []);
+      await getAddress();
+      const init = async () => {
+        initReddio();
+        const { publicKey, privateKey } =
+          await reddio.keypair.generateFromEthSignature();
+        console.log(publicKey, privateKey);
+        addStarkKey(publicKey);
+      };
+      init();
+      // set val to persiststore
+      setSignerAddress(address);
+      setToastMessage({
+        title: "Logged In",
+        description: "User has logged out",
+        status: "success",
+      });
+    } else {
+      console.log(`user logged in: ${address}`);
+    }
   }, []);
-
   useEffect(() => {
-    connect();
-  });
+    if (toastMessage) {
+      const { title, description, status } = toastMessage;
+      toast({
+        title,
+        description,
+        status: status,
+        duration: 2000,
+        isClosable: true,
+      });
+    }
+  }, [toastMessage, toast]);
+
+  const logout = () => {
+    setSignerAddress("");
+    setAddress("");
+    setToastMessage({
+      title: "Logged Out",
+      description: "User has logged out",
+      status: "success",
+    });
+  };
 
   return (
     <>
       <MainContainer>
         <ProfileContainer>
-          <Image
-            src="/nft-auction/public/pfp.jpeg"
-            alt="profile-pic"
-            width={30}
-            height={30}
-          />
-          <AddressContainer>
-            <Address>
-              {address.slice(0, 4)}...{address.slice(-4)}
-            </Address>
-          </AddressContainer>
+          {address && (
+            <>
+              <ComponentContainer>
+                <img src="/pfp.jpeg" />
+                <AddressContainer>
+                  <Address>
+                    {address.slice(0, 4)}...{address.slice(-4)}
+                  </Address>
+                </AddressContainer>
+              </ComponentContainer>
+            </>
+          )}
         </ProfileContainer>
-        <Navigator>
-          <NavigatorUl>
-            <NavItem>My NFT</NavItem>
-            <NavItem>Account</NavItem>
-          </NavigatorUl>
-        </Navigator>
+        <Stack spacing={4} direction="column" align="center">
+          <Button bgColor="blue.400" color="white" onClick={connect}>
+            Sign In
+          </Button>
+          <Button bgColor="red" color="white" onClick={logout}>
+            Sign Out
+          </Button>
+        </Stack>
       </MainContainer>
     </>
   );
