@@ -14,6 +14,7 @@ module.exports = {
   images: {
     loader: 'akamai',
     path: '',
+    domains:['testing-data.reddio.com'],
   },
   trailingSlash: true,
   async redirects() {
