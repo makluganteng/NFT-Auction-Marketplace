@@ -1,5 +1,10 @@
 import styled from "styled-components"
 import Image from "next/image"
+import { ethers } from 'ethers';
+import { initReddio, isVercel, reddio } from './Utils/config';
+import { useCallback, useState } from "react";
+import { getEthAddress } from "./Utils/utils";
+import { addStarkKey } from './Utils/store';
 
 const MainContainer = styled.div`
 background-color: black;
@@ -47,9 +52,33 @@ transition: 0.3s ease-in-out;
 
 `
 
+declare var window: any;
 
 
 const SideBar = () => {
+    const [address, setAddress] = useState('');
+    
+    const getAddress = useCallback(async () => {
+        setAddress(await getEthAddress());
+      }, []);
+
+    const connect = useCallback(async () => {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send('wallet_switchEthereumChain', [
+          { chainId: ethers.utils.hexValue(isVercel ? 1 : 5) },
+        ]);
+        await provider.send('eth_requestAccounts', []);
+        await getAddress();
+        const init = async () => {
+          initReddio();
+          const { publicKey, privateKey } =
+            await reddio.keypair.generateFromEthSignature();
+          console.log(publicKey, privateKey);
+          addStarkKey(publicKey);
+        };
+        init();
+      }, []);
+
     return(
         <>
         <MainContainer>
@@ -57,7 +86,7 @@ const SideBar = () => {
                 <Image src="/nft-auction/public/pfp.jpeg" alt="profile-pic" width={30} height={30} />
                 <AddressContainer>
                     <Address>
-                    0xcA5185...391731e70
+                    {address.slice(0, 4)}...{address.slice(-4)}
                     </Address>
                 </AddressContainer>
             </ProfileContainer>
