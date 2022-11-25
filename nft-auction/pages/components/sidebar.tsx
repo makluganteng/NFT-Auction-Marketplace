@@ -136,7 +136,7 @@ const SideBar = () => {
           {address && (
             <>
               <ComponentContainer>
-                <img src="/pfp.jpeg" />
+                {/* <img src="/pfp.jpeg" /> */}
                 <AddressContainer>
                   <Address>
                     {address.slice(0, 4)}...{address.slice(-4)}

@@ -1,3 +1,6 @@
+import {
+    useToast
+} from "@chakra-ui/react";
 import { NextPage } from "next"
 import Image from "next/image"
 import styled from "styled-components"
@@ -87,6 +90,7 @@ const ListDetails = ({tokenId, imageUrl}: INFTPros) => {
     const [price,setPrice] = useState(0)
     const [seconds,setSeconds] = useState(0)
     const [finish,setFinish] = useState(true)
+    const toast = useToast()
 
     useEffect(()=>{
         axios.get("/api/auction").then((res)=>{
@@ -101,32 +105,31 @@ const ListDetails = ({tokenId, imageUrl}: INFTPros) => {
         setPrice(newestPrice)
     }
 
-
-    async function transferNFT() {
-        try {
-            const contractAddress = "0xd60523fd920eb9b7eff3e115203e32d91de5cf59"
-            const type = "ERC721M"
-            const starkKey = "0x5bc373fad260095fa0a6793408cdb5ebf231c0e6b32d49557b0071b4ab58c74"
-            const amount = 0.000001
-            const receiver = "0xfc58edf6c73e3e239689958ddb5c7e4ccc122feacfae4156f46b464c27f98"
-            const tokenId = 567 // TODO: CHANGE THIS
-            const { privateKey } = await reddio.keypair.generateFromEthSignature();
-            const params: SignTransferParams = {
-                starkKey,
-                privateKey,
-                amount,
-                receiver,
-                type,
-                contractAddress,
-                tokenId
-            };
-            console.log(params)
-            await reddio.apis.transfer(params);
-            alert("NFT is transferred to the buyer successfully!")
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // async function transferNFT() {
+    //     try {
+    //         const contractAddress = "0xd60523fd920eb9b7eff3e115203e32d91de5cf59"
+    //         const type = "ERC721M"
+    //         const starkKey = "0x5bc373fad260095fa0a6793408cdb5ebf231c0e6b32d49557b0071b4ab58c74"
+    //         const amount = 0.000001
+    //         const receiver = "0xfc58edf6c73e3e239689958ddb5c7e4ccc122feacfae4156f46b464c27f98"
+    //         const tokenId = 567 // TODO: CHANGE THIS
+    //         const { privateKey } = await reddio.keypair.generateFromEthSignature();
+    //         const params: SignTransferParams = {
+    //             starkKey,
+    //             privateKey,
+    //             amount,
+    //             receiver,
+    //             type,
+    //             contractAddress,
+    //             tokenId
+    //         };
+    //         console.log(params)
+    //         await reddio.apis.transfer(params);
+    //         alert("NFT is transferred to the buyer successfully!")
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     return(
         <>
@@ -143,7 +146,14 @@ const ListDetails = ({tokenId, imageUrl}: INFTPros) => {
                 <NftOwner>0xfc58edf...56f46b464c27f98</NftOwner>
                 <Price>Price: {price}</Price>
                 <Count>
-                    <Countdown date={Date.now() + 1000} onComplete={()=>{transferNFT()}}>
+                    <Countdown date={Date.now() + 1000} onComplete={()=>{
+                        toast({
+                            title: 'Transaction successful',
+                            description: "NFT is successfully transferred to the buyer",
+                            status: 'success',
+                            duration: 9000,
+                            isClosable: true,
+                        })}}>
                         <p>Auction Finished</p>
                     </Countdown>
                 </Count>
