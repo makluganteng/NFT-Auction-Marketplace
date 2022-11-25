@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Image from "next/image";
 import { ethers } from "ethers";
-import { initReddio, isVercel, reddio } from "./Utils/config";
+import { initReddio, isVercel, reddio } from "../../Utils/config";
 import { useCallback, useEffect, useState } from "react";
-import { getEthAddress } from "./Utils/utils";
-import { addStarkKey } from "./Utils/store";
+import { getEthAddress } from "../../Utils/utils";
+import { addStarkKey } from "../../Utils/store";
 
 const MainContainer = styled.div`
   background-color: black;
