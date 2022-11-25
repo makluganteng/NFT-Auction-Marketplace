@@ -59,12 +59,12 @@ const ModalPop = ({tokenId}:INFTPros) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [price,setPrice] = useState<string>('');
   const [hours,setHours] = useState<string>('');
-
+  const router = useRouter()
   
 
   const convertHours = (hours: number) => {
     let miliseconds: any = hours * 3600000;
-
+    return miliseconds
   }
 
   const handleOnClick = () => {
@@ -72,9 +72,12 @@ const ModalPop = ({tokenId}:INFTPros) => {
     axios.post("/api/auction",{
       token_id: tokenId,
       startingPrice: parseFloat(price),
-      hours: parseInt(hours)
+      hours: convertHours(parseInt(hours))
     }).then((res)=>{
       console.log(res.data)
+      if(res.data){
+        router.push('/Dashboard')
+      }
     }).catch(e=>{
       console.log(e);
     })
