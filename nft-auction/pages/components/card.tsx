@@ -3,7 +3,6 @@ import {useRouter} from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NFT } from "./myNft";
-import { getTokenURI } from "./Utils/utils";
 import Image from "next/image";
 
 const MainCardContainer = styled.div`
