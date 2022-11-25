@@ -2,14 +2,14 @@ import { NextPage } from "next"
 import Image from "next/image"
 import styled from "styled-components"
 import MainBar from "../components/mainbar"
-import { NFT } from "../components/myNft"
 import SideBar from "../components/sidebar"
 import Header from "../components/header";
-import ModalPop from "../components/Modal"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import Countdown from "react-countdown"
+import type { SignTransferParams } from '@reddio.com/js';
+import { reddio } from '../../Utils/config';
 
 const MainContainer = styled.div`
     padding: 100px;
@@ -100,6 +100,34 @@ const ListDetails = ({tokenId, imageUrl}: INFTPros) => {
         let newestPrice = price + 0.5;
         setPrice(newestPrice)
     }
+
+
+    async function transferNFT() {
+        try {
+            const contractAddress = "0xd60523fd920eb9b7eff3e115203e32d91de5cf59"
+            const type = "ERC721M"
+            const starkKey = "0x5bc373fad260095fa0a6793408cdb5ebf231c0e6b32d49557b0071b4ab58c74"
+            const amount = 0.000001
+            const receiver = "0xfc58edf6c73e3e239689958ddb5c7e4ccc122feacfae4156f46b464c27f98"
+            const tokenId = 567 // TODO: CHANGE THIS
+            const { privateKey } = await reddio.keypair.generateFromEthSignature();
+            const params: SignTransferParams = {
+                starkKey,
+                privateKey,
+                amount,
+                receiver,
+                type,
+                contractAddress,
+                tokenId
+            };
+            console.log(params)
+            await reddio.apis.transfer(params);
+            alert("NFT is transferred to the buyer successfully!")
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return(
         <>
         <Header/>
@@ -112,10 +140,10 @@ const ListDetails = ({tokenId, imageUrl}: INFTPros) => {
             </ImageContainer>
             <SecondContainer>
                 <Nftname>Token: {nftId}</Nftname>
-                <NftOwner>0xcA51855...9995DE391731e70</NftOwner>
+                <NftOwner>0xfc58edf...56f46b464c27f98</NftOwner>
                 <Price>Price: {price}</Price>
                 <Count>
-                    <Countdown date={Date.now() + 1000} onComplete={()=>{console.log("success")}}>
+                    <Countdown date={Date.now() + 1000} onComplete={()=>{transferNFT()}}>
                         <p>Auction Finished</p>
                     </Countdown>
                 </Count>
