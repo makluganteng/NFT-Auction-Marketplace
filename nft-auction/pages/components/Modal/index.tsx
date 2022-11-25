@@ -51,42 +51,43 @@ const DurationLabel = styled.p`
 
 interface INFTPros {
   tokenId?: string;
-  imageUrl?:string;
+  imageUrl?: string;
 }
 
-
-const ModalPop = ({tokenId}:INFTPros) => {
+const ModalPop = ({ tokenId }: INFTPros) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [price,setPrice] = useState<string>('');
-  const [hours,setHours] = useState<string>('');
-  const router = useRouter()
-  
+  const [price, setPrice] = useState<string>("");
+  const [hours, setHours] = useState<string>("");
+  const router = useRouter();
 
   const convertHours = (hours: number) => {
     let miliseconds: any = hours * 3600000;
-    return miliseconds
-  }
+    return miliseconds;
+  };
 
   const handleOnClick = () => {
-    console.log("lol")
-    axios.post("/api/auction",{
-      token_id: tokenId,
-      startingPrice: parseFloat(price),
-      hours: convertHours(parseInt(hours))
-    }).then((res)=>{
-      console.log(res.data)
-      if(res.data){
-        router.push('/Dashboard')
-      }
-    }).catch(e=>{
-      console.log(e);
-    })
-  }
+    console.log("lol");
+    axios
+      .post("/api/auction", {
+        token_id: tokenId,
+        startingPrice: parseFloat(price),
+        hours: convertHours(parseInt(hours)),
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          router.push("/Dashboard");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-  const handleInput = (e) => {
-    console.log(e)
+  const handleInput = (e: any) => {
+    console.log(e);
     // setPrice(e.target.value)
-  }
+  };
   return (
     <>
       <ButtonModal
@@ -109,7 +110,11 @@ const ModalPop = ({tokenId}:INFTPros) => {
             <PriceContainer>
               <PriceLabel>Starting Price (ETH)</PriceLabel>
               <NumberInput defaultValue={0} precision={2} step={0.01}>
-                <NumberInputField onChange={(event)=>{setPrice(event.target.value)}}/>
+                <NumberInputField
+                  onChange={(event) => {
+                    setPrice(event.target.value);
+                  }}
+                />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
@@ -118,16 +123,28 @@ const ModalPop = ({tokenId}:INFTPros) => {
             </PriceContainer>
             <DurationContainer>
               <DurationLabel>Duration Auction</DurationLabel>
-              <Input placeholder="Hours" size="lg" onChange={(event)=>{
-                console.log(event)
-                setHours(event.target.value)}}/>
+              <Input
+                placeholder="Hours"
+                size="lg"
+                onChange={(event) => {
+                  console.log(event);
+                  setHours(event.target.value);
+                }}
+              />
             </DurationContainer>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="ghost" onClick={()=>{handleOnClick()}}>List NFT</Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                handleOnClick();
+              }}
+            >
+              List NFT
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
