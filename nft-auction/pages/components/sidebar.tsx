@@ -100,9 +100,11 @@ const SideBar = () => {
         description: "User has logged out",
         status: "success",
       });
+      
     } else {
       console.log(`user logged in: ${address}`);
     }
+    
   }, []);
   useEffect(() => {
     if (toastMessage) {

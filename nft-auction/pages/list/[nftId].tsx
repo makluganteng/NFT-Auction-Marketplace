@@ -7,6 +7,9 @@ import SideBar from "../components/sidebar"
 import Header from "../components/header";
 import ModalPop from "../components/Modal"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import axios from "axios"
+import Countdown from "react-countdown"
 
 const MainContainer = styled.div`
     padding: 100px;
@@ -28,7 +31,7 @@ const Nftname = styled.p`
 
 const NftOwner = styled.p`
     color: white;
-    font-size: 70px;
+    font-size: 40px;
     margin: 30px 0px 0px 0px;
 `
 
@@ -49,15 +52,54 @@ const Container = styled.div`
   display: flex;
 `
 
+const Price = styled.p`
+color: white;
+    font-size: 70px;
+    margin: 30px 0px 0px 0px;
+`
+
+const Button = styled.button`
+color: white;
+    font-size: 40px;
+    background-color: black;
+    margin: 250px 0px 0px 0px;
+    padding: 10px 100px 10px 100px;
+    border-radius: 50px;
+    transition: 0.3s ease-in-out;
+    &:hover {
+        transform: scale(1.04);
+    }
+`
+
+const Count = styled.div`
+color: white;
+font-size: 30px;
+`
+
 interface INFTPros {
     tokenId?: string;
     imageUrl?:string;
 }
 
-const NftDetails = ({tokenId, imageUrl}: INFTPros) => {
+const ListDetails = ({tokenId, imageUrl}: INFTPros) => {
     const router = useRouter();
     const {nftId} = router.query
+    const [price,setPrice] = useState(0)
+    const [seconds,setSeconds] = useState(0)
+    const [finish,setFinish] = useState(true)
 
+    useEffect(()=>{
+        axios.get("/api/auction").then((res)=>{
+            console.log(res.data)
+            setPrice(res.data[0].startingPrice)
+            setSeconds(res.data[0].hours)
+        })
+    },[])
+
+    const handleOnClick = () => {
+        let newestPrice = price + 0.5;
+        setPrice(newestPrice)
+    }
     return(
         <>
         <Header/>
@@ -70,8 +112,14 @@ const NftDetails = ({tokenId, imageUrl}: INFTPros) => {
             </ImageContainer>
             <SecondContainer>
                 <Nftname>Token: {nftId}</Nftname>
-                <NftOwner>Beluga</NftOwner>
-                <ModalPop tokenId={nftId}/>
+                <NftOwner>0xcA51855...9995DE391731e70</NftOwner>
+                <Price>Price: {price}</Price>
+                <Count>
+                    <Countdown date={Date.now() + 1000} onComplete={()=>{console.log("success")}}>
+                        <p>Auction Finished</p>
+                    </Countdown>
+                </Count>
+                <Button onClick={handleOnClick}>Bid + 0.5</Button>
             </SecondContainer>
         </MainContainer>
                 </MainBar>
@@ -80,4 +128,4 @@ const NftDetails = ({tokenId, imageUrl}: INFTPros) => {
     )
 }
 
-export default NftDetails
+export default ListDetails
