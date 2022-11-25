@@ -50,7 +50,7 @@ const DurationLabel = styled.p`
 `;
 
 interface INFTPros {
-  tokenId?: string;
+  tokenId?: string | string[] | undefined;
   imageUrl?: string;
 }
 
