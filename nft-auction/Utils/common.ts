@@ -1,4 +1,4 @@
-import { isVercel } from '../Utils/config';
+import { isVercel } from './config';
 
 const ERC20Address = !isVercel
   ? '0x57F3560B6793DcC2cb274c39E8b8EBa1dd18A086'

@@ -17,13 +17,13 @@ module.exports = {
     domains:['testing-data.reddio.com'],
   },
   trailingSlash: true,
-  async redirects() {
-    return [
-      {
-        source: "/",
-        destination: "/Dashboard",
-        permanent: true,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       destination: "/Dashboard",
+  //       permanent: true,
+  //     },
+  //   ];
+  // },
 };

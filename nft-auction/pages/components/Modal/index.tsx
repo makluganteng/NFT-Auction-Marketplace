@@ -17,6 +17,7 @@ import {
 import { Button, ButtonGroup } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import styled from "styled-components";
 
@@ -48,12 +49,18 @@ const DurationLabel = styled.p`
   font-size: 30px;
 `;
 
-const ModalPop = () => {
+interface INFTPros {
+  tokenId?: string;
+  imageUrl?:string;
+}
+
+
+const ModalPop = ({tokenId}:INFTPros) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [price,setPrice] = useState<number>(0);
-  const [hours,setHours] = useState<number>(0);
-  var priceValue: number;
-  var hoursValue: number;
+  const [price,setPrice] = useState<string>('');
+  const [hours,setHours] = useState<string>('');
+
+  
 
   const convertHours = (hours: number) => {
     let miliseconds: any = hours * 3600000;
@@ -61,7 +68,16 @@ const ModalPop = () => {
   }
 
   const handleOnClick = () => {
-    
+    console.log("lol")
+    axios.post("/api/auction",{
+      token_id: tokenId,
+      startingPrice: parseFloat(price),
+      hours: parseInt(hours)
+    }).then((res)=>{
+      console.log(res.data)
+    }).catch(e=>{
+      console.log(e);
+    })
   }
 
   const handleInput = (e) => {
@@ -99,7 +115,9 @@ const ModalPop = () => {
             </PriceContainer>
             <DurationContainer>
               <DurationLabel>Duration Auction</DurationLabel>
-              <Input placeholder="Hours" size="lg" onChange={(event)=>{setHours(event.target.value)}}/>
+              <Input placeholder="Hours" size="lg" onChange={(event)=>{
+                console.log(event)
+                setHours(event.target.value)}}/>
             </DurationContainer>
           </ModalBody>
           <ModalFooter>

@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
-import erc20Abi from '../abi/Erc20.abi.json';
-import erc721Abi from '../abi/Erc721.abi.json';
-import { ERC721Address } from '../Utils/common';
+import erc20Abi from '../pages/components/abi/Erc20.abi.json';
+import erc721Abi from '../pages/components/abi/Erc721.abi.json';
+import { ERC721Address } from './common';
 
 const initProviderAndSigner = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);

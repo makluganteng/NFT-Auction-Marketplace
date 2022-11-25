@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import styled from "styled-components";
 import Card from "./card";
 import { useSnapshot } from 'valtio';
-import { store } from './Utils/store';
+import { store } from "../../Utils/store";
 import { useSearchParams } from 'react-router-dom';
 import axios from "axios";
 
