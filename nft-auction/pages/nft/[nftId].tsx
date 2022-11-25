@@ -71,7 +71,7 @@ const NftDetails = ({tokenId, imageUrl}: INFTPros) => {
             <SecondContainer>
                 <Nftname>Token: {nftId}</Nftname>
                 <NftOwner>Beluga</NftOwner>
-                <ModalPop nftId={tokenId}/>
+                <ModalPop tokenId={tokenId}/>
             </SecondContainer>
         </MainContainer>
                 </MainBar>
