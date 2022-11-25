@@ -53,7 +53,7 @@ const Header = () => {
             <MainContainer>
                 <TitleContainer>
                     <Title>
-                        zkNAM - zero-knowledge NFT Auction Marketplace
+                        ZKNAM - Zero Knowledge NFT Auction Marketplace
                     </Title>
                 </TitleContainer>
                 <MenuContainer>

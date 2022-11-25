@@ -83,7 +83,7 @@ const SideBar = () => {
         <>
         <MainContainer>
             <ProfileContainer>
-                <Image src="/nft-auction/public/pfp.jpeg" alt="profile-pic" width={30} height={30} />
+                <Image src="/profile.png" alt="profile" width={30} height={30} />
                 <AddressContainer>
                     <Address>
                     {address.slice(0, 4)}...{address.slice(-4)}
